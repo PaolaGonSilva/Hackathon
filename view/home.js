@@ -8,13 +8,13 @@ let homeView = {
             
 
     
-        $('#start').html('Começar');
-        $("#formbutton").on("click", () => {
-            window.location.hash = "form";
+        $('#start').html('View all Events');
+        $("#start").on("click", () => {
+            window.location.hash = "event";
         })
         $(document).keyup(event => {
             if (event.key == "Enter") {
-                window.location.hash = "form";
+                window.location.hash = "event";
             }
         })
     }

@@ -1,10 +1,9 @@
-import formView from  "../view/form.js";
+import eventView from  "../view/events.js";
 
-let homeController = {
+let eventController = {
     init : () => {
-        formView.show();
+        eventView.show();
     }
 }
 
-export default homeController;
-"---------------------------"
+export default eventController;

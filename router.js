@@ -1,5 +1,6 @@
 import homeController from "./controllers/home-controllers.js";
 import formController from "./controllers/form-controllers.js"
+import eventController from "./controllers/agenda-controller.js"
 //module to be exported
 let router;
 
@@ -10,9 +11,13 @@ router = {
             hash: '#home',
             controller: homeController
         },
-        game: {
+        form: {
             hash: '#form',
             controller : formController
+        },
+        event: {
+            hash: '#event',
+            controller : eventController
         }
     },
 

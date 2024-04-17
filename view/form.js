@@ -1,67 +1,86 @@
+import eventImp from "../view/events.js";
+
 let homeView = {
     show: () => {
         console.log("homeshow");
         $('.title').html('Form');
 
-        $('#content').empty();
-        $('#content').html(
-            "<form id='myForm'>" +
-            "<label>Name</label>" +
-            "<input type='text' class='normal' id='name' min='18'>" +
-            "<span id='name-error' class='error' style='display: none;'>Please insert more than 3 letters</span>" +
+        $('#content').empty().html(`
+            <form id='myForm'>
+                <label>Name</label>
+                <input type='text' class='normal' id='name' min='18'>
+                <span id='name-error' class='error' style='display: none;'>Please insert more than 3 letters</span>
 
-            "<label>Age</label>" +
-            "<input type='number' class='normal' id='age'>" +
-            "<span id='age-error' class='error' style='display: none;'>Please enter a valid age (numeric characters only) and age must be at least 18.</span>" +
+                <label>City</label>
+                <input type='text' class='normal' id='city'>
 
-            "<label>City</label>" +
-            "<input type='text' class='normal'>" +
+                <label>Country</label>
+                <input type='text' class='normal' id='country'>
 
-            "<label>Country</label>" +
-            "<input type='text' class='normal'>" +
-
-            "<label>Opções</label>" +
-            "<select id='select'>" +
-            "<option>Select One Option</option>" +
-            "<option>Welcoming war victims</option>" +
-            "<option>Create Solidarity Event</option>" +
-            "<option>Be a volunteer</option>" +
-            "</select>" +
-            "<span id='select-error' class='error' style='display: none;'>Please choose one option.</span>" +
-
-            "</form>");
+                <label>Message</label>
+                <input type='text' class='' id='message'>
+                
+            </form>
+            <button id='centro' class='back'>Go Back</button>
+        `);
 
 
+        $('.back').on("click", () => {
+            console.log("cascas");
+            window.location.hash = "event"
+        });
 
-        $('#start').html('Submeter');
-        $("#start").on("click", () => {
-            homeView.validate();
-        })
+        $('#start').html('Submit');
+
+        $('#start').on("click", () => {
+            submitForm();
+        });
+
+
         $(document).keyup(event => {
-            if (event.key == "Enter") {
-                homeView.validate();
+            if (event.key === "Enter") {
+                submitForm();
             }
-        })
-
+        });
     },
+
     validate: () => {
-        var selectValue = $('#select').val();
-        var ageValue = $("#age").val();
-        var nameValue = $("#name").val();
-        console.log(nameValue.split("").length);
-        if(nameValue.split("").length<3) {
+        let ok = true;
+        const nameValue = $("#name").val().trim();
+        if (nameValue.length < 3) {
             $("#name-error").show();
-        }
-        if(selectValue === "Select One Option"){
-            $("#select-error").show();
-        }
-        if (!$.isNumeric(ageValue) || ageValue < 18) {
-            $("#age-error").show();
+            ok = false;
+            eventImp.eventExample.pop()
         } else {
-            $("#age-error").hide();
-            window.location.hash = "home";
+            $("#name-error").hide();
+            window.location.hash = "events"
         }
+
+        return ok;
     }
+};
+
+function submitForm() {
+
+
+    const newEvent = {
+        name: $("#name").val().trim(),
+        city: $("#city").val().trim(),
+        country: $("#country").val().trim(),
+        message: $("#message").val().trim()
+    };
+
+    eventImp.eventExample.push(newEvent);
+    clearForm();
+    validate();
 }
+
+function clearForm() {
+    $("#name").val('');
+    $("#city").val('');
+    $("#country").val('');
+    $("#message").val('');
+}
+
 
 export default homeView;
