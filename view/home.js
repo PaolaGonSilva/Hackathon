@@ -1,14 +1,14 @@
 let homeView = {
     show: () => {
         console.log("homeshow");
-        $('.title').html('Home Page');
+        $('.title').html('');
 
         $('#content').empty();
         $('#content').html();
             
 
     
-        $('#start').html('Começar');
+        $('#start').html('');
         $("#formbutton").on("click", () => {
             window.location.hash = "form";
         })
